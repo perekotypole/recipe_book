@@ -6,7 +6,12 @@ import { Filter, RecipeItem, RecipesList } from "../recipe-book";
 
 const baseUrl = process.env.API_URL;
 
-const getAllRecipes = async (filters: Filter) => {
+const getAllRecipes = async (
+	filters: Filter,
+): Promise<{
+	total: number;
+	list: RecipesList;
+}> => {
 	const paramsQuery = {
 		i: filters.ingredient,
 		a: filters.country,
@@ -29,7 +34,11 @@ const getAllRecipes = async (filters: Filter) => {
 	};
 };
 
-const getRecipeById = async (id: number) => {
+const getRecipeById = async (
+	id: number,
+): Promise<{
+	item: RecipeItem;
+} | null> => {
 	const url = `${baseUrl}/recipe/${id}`;
 
 	const res = await fetch(url, {
@@ -37,7 +46,11 @@ const getRecipeById = async (id: number) => {
 	});
 
 	if (!res.ok) {
-		throw new Error("Failed to fetch recipes");
+		if (res.status === 404) {
+			return null;
+		} else {
+			throw new Error("Failed to fetch recipe details");
+		}
 	}
 
 	return (await res.json()) as {

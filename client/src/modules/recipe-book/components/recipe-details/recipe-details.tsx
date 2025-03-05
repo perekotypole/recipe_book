@@ -16,11 +16,11 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = (props) => {
 	const { ingredients } = useRecipeDetails(props);
 
 	return (
-		<div className="flex">
-			<div className="flex-grow p-8">
+		<div className="flex flex-col sm:flex-row gap-8">
+			<div className="flex-grow">
 				<div className="max-w-4xl mx-auto">
-					<div className="flex">
-						<div className="w-1/2 pr-8">
+					<div className="flex flex-col sm:flex-row gap-8">
+						<div className="w-full pb-8 sm:w-1/2 sm:pr-8o">
 							<div className="relative w-full h-96">
 								<Image
 									src={recipe.strMealThumb}
@@ -31,7 +31,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = (props) => {
 							</div>
 						</div>
 
-						<div className="w-1/2">
+						<div className="w-full sm:w-1/2">
 							<h1 className="text-4xl font-bold mb-4 text-center">
 								{recipe.strMeal}
 							</h1>
@@ -42,23 +42,25 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = (props) => {
 							>
 								{recipe.strArea}
 							</Link>
+
+							<div className="my-8">
+								<h2 className="text-2xl font-semibold mb-4">Ingredients</h2>
+
+								<ul className="max-h-[250px] sm:max-h-[500px] overflow-auto custom-scrollbar">
+									{ingredients.map(({ ingredient, measure }) => (
+										<Link
+											key={ingredient}
+											href={`/?ingredient=${encodeURIComponent(ingredient)}`}
+											className="block hover:bg-gray-700 p-2 rounded-lg"
+										>
+											<li className="text-lg cursor-pointer">
+												{ingredient} ({measure})
+											</li>
+										</Link>
+									))}
+								</ul>
+							</div>
 						</div>
-					</div>
-
-					<div className="mt-8">
-						<h2 className="text-2xl font-semibold mb-4">Ingredients</h2>
-
-						{ingredients.map(({ ingredient, measure }) => (
-							<Link
-								key={ingredient}
-								href={`/?ingredient=${encodeURIComponent(ingredient)}`}
-								className="block hover:bg-gray-700 p-2 rounded-lg"
-							>
-								<li className="text-lg cursor-pointer">
-									{ingredient} ({measure})
-								</li>
-							</Link>
-						))}
 					</div>
 				</div>
 			</div>

@@ -5,4 +5,4 @@ type Filter = {
 	category?: string;
 };
 
-export { Filter };
+export type { Filter };

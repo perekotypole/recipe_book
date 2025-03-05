@@ -54,4 +54,4 @@ type RecipeItem = {
 	"dateModified": Date | null;
 };
 
-export { RecipeItem };
+export type { RecipeItem };

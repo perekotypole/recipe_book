@@ -9,10 +9,10 @@ type Props = {
 
 const RecipesSidebar: React.FC<Props> = ({ list }) => {
 	return (
-		<div className="w-72 p-4 overflow-y-auto max-h-screen">
+		<div className="sm:w-72 p-4">
 			<h2 className="text-2xl font-bold mb-4">Related Recipes</h2>
 
-			<div className="space-y-4">
+			<div className="grid space-y-4 overflow-y-auto max-h-[350px] sm:max-h-[800px] custom-scrollbar">
 				{list.map((recipe) => (
 					<RecipeCard key={recipe.idMeal} recipe={recipe}></RecipeCard>
 				))}
