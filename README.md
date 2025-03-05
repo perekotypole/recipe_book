@@ -11,6 +11,18 @@ Before running the application, make sure you have the following installed:
 - npm or yarn
 - Git
 
+## Docker Setup
+
+Build the image
+``` bash
+docker compose -f docker-compose.yml build
+```
+
+Then start containers
+``` bash
+docker compose -f docker-compose.yml up -d
+```
+
 ## Server Setup
 
 ### 1. Clone the repository
