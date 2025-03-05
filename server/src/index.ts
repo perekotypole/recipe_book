@@ -1,14 +1,22 @@
 import express from "express";
+import * as dotenv from "dotenv";
 
-import { router } from "./routes";
+import { recipeBookRouter } from "./modules/recipe-book/recipe-book";
+import { Route } from "./libs/enums/routes";
+
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = Number(process.env.PORT ?? 8000);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", router);
+app.use(Route.ROOT, recipeBookRouter);
+
+app.get(Route.ROOT, (_req, res): void => {
+	res.json({ status: "Health" });
+});
 
 app.listen(port, () => {
 	console.log(`Server is running at http://localhost:${port}`);
