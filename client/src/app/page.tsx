@@ -13,7 +13,7 @@ const HomePage = async ({
 	const filters = await searchParams;
 	const { list } = await getAllRecipes(filters);
 
-	const pageTitle = getPageTitle(filters)
+	const pageTitle = getPageTitle(filters);
 
 	return <RecipeBookComponents.RecipesList title={pageTitle} list={list} />;
 };

@@ -2,7 +2,7 @@
 
 import qs from "qs";
 
-import { Filter, RecipesList } from "../recipe-book";
+import { Filter, RecipeItem, RecipesList } from "../recipe-book";
 
 const baseUrl = process.env.API_URL;
 
@@ -29,4 +29,20 @@ const getAllRecipes = async (filters: Filter) => {
 	};
 };
 
-export { getAllRecipes };
+const getRecipeById = async (id: number) => {
+	const url = `${baseUrl}/recipe/${id}`;
+
+	const res = await fetch(url, {
+		next: { revalidate: 60 },
+	});
+
+	if (!res.ok) {
+		throw new Error("Failed to fetch recipes");
+	}
+
+	return (await res.json()) as {
+		item: RecipeItem;
+	};
+};
+
+export { getAllRecipes, getRecipeById };
