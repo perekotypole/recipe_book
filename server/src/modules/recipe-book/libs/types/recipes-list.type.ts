@@ -4,4 +4,4 @@ type RecipesList = Array<
 	Pick<RecipeItem, "idMeal" | "strMeal" | "strMealThumb">
 >;
 
-export { RecipesList };
+export type { RecipesList };
