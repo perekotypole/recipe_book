@@ -1,35 +1,27 @@
 import axios from "axios";
 import * as dotenv from "dotenv";
 
-import { Filter } from "./libs/types/filter.type";
-import { RecipeItem } from "./libs/types/recipe-item.type";
+import { type Filter } from "./libs/types/filter.type";
+import { type RecipesList } from "./libs/types/recipes-list.type";
+import { selectUrl } from "./libs/helpers/select-url.helper";
 
 dotenv.config();
 
 const baseUrl = process.env.DB_BASE_URL;
 
 const getRecipeList = async ({
-	filter,
+	filters,
 }: {
-	filter: Filter;
-}): Promise<Array<RecipeItem>> => {
-	const selectUrl = (f: Filter): string => {
-		const isFiltered = Object.keys(filter).length !== 0;
-
-		if (isFiltered) {
-			return `${baseUrl}/search.php?s=${f.search ?? ""}`;
-		}
-
-		return `${baseUrl}/search.php?s=${f.search ?? ""}`;
-	};
-
-	const apiUrl = selectUrl(filter);
-
-	console.log(apiUrl);
-
+	filters: Filter;
+}): Promise<RecipesList> => {
+	const apiUrl = selectUrl(baseUrl, filters);
 	const { data } = await axios.get(apiUrl);
 
-	return data.meals as Array<RecipeItem>;
+	if (!Array.isArray(data.meals)) {
+		return []
+	}
+
+	return data.meals as RecipesList;
 };
 
 export { getRecipeList };
