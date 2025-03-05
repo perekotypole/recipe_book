@@ -20,10 +20,14 @@ const getRecipesList = async ({
 	const { data } = await axios.get(apiUrl);
 
 	if (!Array.isArray(data.meals)) {
-		return []
+		return [];
 	}
 
-	return data.meals as RecipesList;
+	return (data.meals as Array<RecipeItem>).map((meal) => ({
+		idMeal: meal.idMeal,
+		strMeal: meal.strMeal,
+		strMealThumb: meal.strMealThumb,
+	})) as RecipesList;
 };
 
 const getRecipeById = async ({
@@ -35,7 +39,7 @@ const getRecipeById = async ({
 	const { data } = await axios.get(apiUrl);
 
 	if (!Array.isArray(data.meals)) {
-		return null
+		return null;
 	}
 
 	return data.meals[0] as RecipeItem;

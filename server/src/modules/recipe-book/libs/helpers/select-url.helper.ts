@@ -12,4 +12,4 @@ const selectUrl = (baseUrl: string, filters: Filter): string => {
 	return `${baseUrl}/search.php?s=${filters.search ?? ""}`;
 };
 
-export { selectUrl }
+export { selectUrl };

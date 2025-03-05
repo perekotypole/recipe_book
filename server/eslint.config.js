@@ -22,7 +22,11 @@ const config = [
     rules: {
       "prettier/prettier": "error",
       "no-unused-vars": "warn",
-      "no-console": "warn"
+      "no-console": "warn",
+      "@typescript-eslint/no-unused-vars": ["warn", { 
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }],
     }
   },
   pluginJs.configs.recommended,
